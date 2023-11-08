@@ -1,0 +1,54 @@
+name: CI
+on:
+    push: # Whenever there's a push to main
+        branches: ["main"]
+    pull_request: # Whenever there's a pull request to main
+        branches: ["main"]
+
+jobs:
+    eslint:
+        name: Run ESLint
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v1
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - run: npm i
+
+            - name: Run ESLint
+              run: yarn run eslint . --ext .js,.jsx,.ts,.tsx
+
+    robloxts:
+        name: Run RBXTSC
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            security-events: write
+            actions: read
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: roblox-ts installation
+              run: |
+                  npm i roblox-ts@2.0.4
+
+            - name: Dependencies check
+              run: npm i
+
+            - name: rbxtsc run
+              shell: bash
+              run: npx rbxtsc --verbose
+
+            - name: Finished
+              run: echo done

@@ -1,0 +1,45 @@
+name: Publishing package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publishing:
+    name: Package publishing to latest
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          scope: ${{github.repository_owner}}
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Installation of roblox-ts
+        run: |
+          npm i roblox-ts@2.0.4
+      
+      - name: Dependencies
+        run: npm ci
+      
+      - name: Compile code
+        shell: bash
+        run: npx rbxtsc --verbose
+
+      - name: Publishing package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: Compilation successful
+        run: echo done
+
