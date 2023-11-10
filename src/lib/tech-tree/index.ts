@@ -7,6 +7,7 @@ class TechTreeClass implements TechTreeInterface {
 	private WorldObjects = new Map<string, WorldObjectBase>();
 	private WorldObjectComponents = new Map<string, WorldObjectComponentBase>();
 	private Items = new Map<string, ItemBase>();
+	Types = TechTreeTypes;
 	add(techType: number, object: unknown): boolean {
 		switch (techType) {
 			case TechTreeTypes.WorldObject:

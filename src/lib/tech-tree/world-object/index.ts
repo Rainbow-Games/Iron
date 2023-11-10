@@ -126,7 +126,7 @@ export class ClonedWorldObject implements ClonedWorldObjectInterface {
 	/**Components */
 	readonly components = new Map<string, ClonedWorldObjectComponent>();
 	/**True if all components are functioning as needed. */
-	enabled = new Bin<boolean>();
+	enabled = new Bin<boolean>(true);
 	/**Updates enabled status */
 	private updateEnabled(value: boolean | undefined) {
 		if (value === false) {
@@ -193,9 +193,9 @@ export class ClonedWorldObjectComponent implements ClonedWorldObjectComponentInt
 	/** the linked world object */
 	readonly object: ClonedWorldObject;
 	/**The components status to show to the client. */
-	status = new Bin<string>();
+	status = new Bin<string>("Enabled.");
 	/**True if the component is functioning as needed. */
-	enabled = new Bin<boolean>();
+	enabled = new Bin<boolean>(true);
 	/**Sets initial values and returns a new instance of this component. */
 	constructor(base: WorldObjectComponentBase, object: ClonedWorldObject) {
 		this.base = base;

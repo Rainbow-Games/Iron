@@ -103,9 +103,9 @@ export interface WorldObjectComponentBase {
 	/**The icon for the component */
 	icon: string;
 	/**Ticks on every frame */
-	tick: (dt: number, object: ClonedWorldObjectComponentInterface) => void;
+	tick: (dt: number, compoent: ClonedWorldObjectComponentInterface) => void;
 	/**Initializes this component */
-	initialize: (object: ClonedWorldObjectComponentInterface) => void;
+	initialize: (compoent: ClonedWorldObjectComponentInterface) => void;
 	/**Fires before world object destruction */
-	destroy: (object: ClonedWorldObjectComponentInterface) => void;
+	destroy: (compoent: ClonedWorldObjectComponentInterface) => void;
 }
