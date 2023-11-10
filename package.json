@@ -33,8 +33,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@rbxts/reflex": "^4.2.2",
-    "@rbxts/remo": "^1.2.4",
     "@rbxts/roact": "^1.4.4-ts.0",
     "@rbxts/services": "^1.5.1",
     "@rbxts/t": "^3.1.0"

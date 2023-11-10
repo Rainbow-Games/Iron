@@ -9,6 +9,7 @@ import {
 	WorldObjectComponentBase,
 	WorldObjectManagerInterface,
 } from "./types";
+import { Bin } from "../../bin";
 
 /**
  * Manages all world objects in the game and makes new ones.
@@ -121,16 +122,26 @@ export class ClonedWorldObject implements ClonedWorldObjectInterface {
 	/**The cloned model of the object for displaying in world. */
 	readonly model: Model;
 	/**The dynamic data for the object. */
-	readonly vars = new Map<string, unknown>();
+	readonly vars = new Map<string, Bin<unknown>>();
 	/**Components */
 	readonly components = new Map<string, ClonedWorldObjectComponent>();
 	/**True if all components are functioning as needed. */
-	enabled: boolean = (() => {
-		for (const [_, c] of this.components) {
-			if (!c.enabled) return false;
+	enabled = new Bin<boolean>();
+	/**Updates enabled status */
+	private updateEnabled(value: boolean | undefined) {
+		if (value === false) {
+			this.enabled.set(false);
+			return;
+		} else {
+			for (const [_, compoent] of this.components) {
+				if (compoent.enabled.get() === true) continue;
+				this.enabled.set(false);
+				return;
+			}
+			this.enabled.set(true);
+			return;
 		}
-		return true;
-	})();
+	}
 	/**Cretaes compoents and sets up the object. */
 	constructor(base: WorldObjectBase) {
 		this.base = base;
@@ -140,8 +151,11 @@ export class ClonedWorldObject implements ClonedWorldObjectInterface {
 			if (!WorldObjectComponent(component)) {
 				continue;
 			}
-			this.components.set(component.name, new ClonedWorldObjectComponent(component, this));
+			const com = new ClonedWorldObjectComponent(component, this);
+			this.components.set(component.name, com);
+			com.enabled.changed.connect((value) => this.updateEnabled(value));
 		}
+		this.enabled.set(true);
 	}
 	/**Runs on every frame to update the object. */
 	Tick(dt: number) {
@@ -175,15 +189,18 @@ export class ClonedWorldObjectComponent implements ClonedWorldObjectComponentInt
 	/**The static data from the tech tree. */
 	readonly base: WorldObjectComponentBase;
 	/**The dynamic variables for the component. */
-	readonly vars = new Map<string, unknown>();
+	readonly vars = new Map<string, Bin<unknown>>();
 	/** the linked world object */
 	readonly object: ClonedWorldObject;
+	/**The components status to show to the client. */
+	status = new Bin<string>();
 	/**True if the component is functioning as needed. */
-	enabled: boolean = true;
+	enabled = new Bin<boolean>();
 	/**Sets initial values and returns a new instance of this component. */
 	constructor(base: WorldObjectComponentBase, object: ClonedWorldObject) {
 		this.base = base;
 		this.object = object;
+		this.enabled.set(true);
 	}
 	/**Ticks on every frame to update the component. */
 	Tick(dt: number) {

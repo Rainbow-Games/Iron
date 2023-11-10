@@ -1,3 +1,5 @@
+import { Bin } from "../../bin";
+
 /**Ticks and manages all world objects in the game */
 export interface WorldObjectManagerInterface {
 	/**where all the world objects are placed in the game */
@@ -35,11 +37,11 @@ export interface ClonedWorldObjectInterface {
 	/**The model cloned from the tech tree */
 	readonly model: Model;
 	/**variables for the world object to use */
-	readonly vars: Map<string, unknown>;
+	readonly vars: Map<string, Bin<unknown>>;
 	/**Components of the world object */
 	readonly components: Map<string, ClonedWorldObjectComponentInterface>;
 	/**true if the object's components are functioning as normal */
-	enabled: boolean;
+	enabled: Bin<boolean>;
 	/**Ticks on every frame */
 	Tick(dt: number): void;
 	/**Initialize the object and change component settings */
@@ -75,11 +77,13 @@ export interface ClonedWorldObjectComponentInterface {
 	/**The base from the tech tre. */
 	readonly base: WorldObjectComponentBase;
 	/**Variables for the component to use. */
-	readonly vars: Map<string, unknown>;
+	readonly vars: Map<string, Bin<unknown>>;
 	/**The world object the world object is linked to */
 	readonly object: ClonedWorldObjectInterface;
 	/**True if this component meets its needs set to false to diable the world object until needs are resolved. */
-	enabled: boolean;
+	enabled: Bin<boolean>;
+	/**The status to show to the client. */
+	status: Bin<string>;
 	/**Ticks on every frame */
 	Tick(dt: number): void;
 	/**Initializes this component */

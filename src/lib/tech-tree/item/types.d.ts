@@ -1,3 +1,5 @@
+import { Bin } from "../../bin";
+
 /**An item type */
 export abstract class ItemBase {
 	/**The system name */
@@ -49,11 +51,11 @@ export abstract class ItemStackBase {
 	/**The item in the stack */
 	item: ItemBase | WorldObjectItemBase;
 	/**How much of that item is in the stack */
-	quantity: number;
+	quantity: Bin<number>;
 }
 
 /**Durrability Item Stacks */
 export abstract class DurrabilityItemStackBase extends ItemStackBase {
 	/**durrability out of 100 */
-	durrability: number;
+	durrability: Bin<number>;
 }
