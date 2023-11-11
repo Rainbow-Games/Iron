@@ -1,9 +1,9 @@
 name: CI
 on:
-    push: # Whenever there's a push to main
-        branches: ["main"]
-    pull_request: # Whenever there's a pull request to main
-        branches: ["main"]
+    push: # Whenever there's a push to development
+        branches: ["Development"]
+    pull_request: # Whenever there's a pull request to development
+        branches: ["Development"]
 
 jobs:
     eslint:

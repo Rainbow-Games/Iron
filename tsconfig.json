@@ -14,7 +14,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"moduleDetection": "force",
 		"strict": true,
-		"target": "ESNext",
+		"target": "ES5",
 		"typeRoots": ["node_modules/@rbxts"],
 
 		// configurable
