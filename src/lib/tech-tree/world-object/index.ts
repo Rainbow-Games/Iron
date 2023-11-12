@@ -1,4 +1,4 @@
-import { snowflake } from "../../utility";
+import { OnlyServer, snowflake } from "../../utility";
 import { Workspace } from "@rbxts/services";
 import { TechTreeTypes, WorldObject, WorldObjectComponent } from "../t";
 import { TechTree } from "..";
@@ -10,13 +10,20 @@ import {
 	WorldObjectManagerInterface,
 } from "./types";
 import { Bin } from "../../bin";
+import { t } from "@rbxts/t";
+import { Link } from "../../link";
 
 /**
  * Manages all world objects in the game and makes new ones.
  */
-export class WorldObjectManagerClass implements WorldObjectManagerInterface {
-	/**how many updates a second each world object gets */
-	private fps: number;
+export class WorldObjectManager implements WorldObjectManagerInterface {
+	private static instance: WorldObjectManager;
+	static getInstance(): WorldObjectManager {
+		if (!this.instance) this.instance = new WorldObjectManager();
+		return this.instance;
+	}
+	/**how many ticks a second each world object gets */
+	private tps: number;
 	/**
 	 * The Root folder to place world objects in.
 	 */
@@ -71,14 +78,18 @@ export class WorldObjectManagerClass implements WorldObjectManagerInterface {
 	 * @returns The id of the world object made.
 	 */
 	create(name: string): number {
-		const base = TechTree.get(TechTreeTypes.WorldObject, name);
+		const base = TechTree.getInstance().get(TechTreeTypes.WorldObject, name);
 		if (!WorldObject(base)) {
 			return 0;
 		}
-		const object = new ClonedWorldObject(base);
+		const object = new ClonedWorldObject(base as WorldObjectBase);
 		this.add(object);
 		return object.id;
 	}
+
+	/**Initializes and starts the ticking of a world object.
+	 * @param id The id of the WorldObject.
+	 */
 	initialize(id: number): void {
 		const object = this.get(id);
 		if (!object) return;
@@ -88,15 +99,17 @@ export class WorldObjectManagerClass implements WorldObjectManagerInterface {
 	 * Defines all the starting variables.
 	 * @param root The folder where all objects are placed.
 	 */
-	constructor(root: Folder | undefined, fps: number) {
-		if (root === undefined) {
-			root = new Instance("Folder");
-			root.Parent = Workspace;
-			root.Name = "WorldObjects";
-		}
-		this.root = root;
-		this.fps = fps;
-		task.delay(1 / this.fps, () => this.Tick(os.clock()));
+	private constructor() {
+		this.root = new Instance("Folder");
+		this.root.Name = "WorldObjects";
+		this.root.Parent = Workspace.WaitForChild("@rbxts/iron");
+		this.tps = 20;
+		Link.getInstance().setCallback(Link.getInstance().InternalCommands.GetObjectById, (player, id) => {
+			print(id);
+			if (!t.number(id)) return;
+			return this.get(id);
+		});
+		task.delay(1 / this.tps, () => this.Tick(os.clock()));
 	}
 	/**
 	 * Ticks all world objects once per defined frame.
@@ -107,7 +120,7 @@ export class WorldObjectManagerClass implements WorldObjectManagerInterface {
 		for (const [_, object] of this.WorldObjects) {
 			task.spawn(() => object.Tick(dt));
 		}
-		task.delay(1 / this.fps - (os.clock() - lastTick) - 0.01, () => this.Tick(lastTick));
+		task.delay(1 / this.tps - (os.clock() - lastTick) - 0.01, () => this.Tick(lastTick));
 	}
 }
 
@@ -147,11 +160,11 @@ export class ClonedWorldObject implements ClonedWorldObjectInterface {
 		this.base = base;
 		this.model = this.base.model.Clone();
 		for (const c of this.base.components) {
-			const component = TechTree.get(TechTreeTypes.WorldObjectComponent, c);
+			const component = TechTree.getInstance().get(TechTreeTypes.WorldObjectComponent, c);
 			if (!WorldObjectComponent(component)) {
 				continue;
 			}
-			const com = new ClonedWorldObjectComponent(component, this);
+			const com = new ClonedWorldObjectComponent(component as WorldObjectComponentBase, this);
 			this.components.set(component.name, com);
 			com.enabled.changed.connect((value) => this.updateEnabled(value));
 		}

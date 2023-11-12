@@ -1,6 +1,8 @@
 export class Bin<T> {
 	private _value: T;
+	syncToView: boolean = false;
 	set(value: T) {
+		if (value === this._value) return;
 		this._value = value;
 		this.changed.fire(value);
 	}

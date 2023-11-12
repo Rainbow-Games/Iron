@@ -1,12 +1,16 @@
 import { t } from "@rbxts/t";
 import { RunService } from "@rbxts/services";
-import { NetLinkInterface } from "./types";
+import { LinkInterface } from "./types";
 
 if (RunService.IsServer()) {
-	const remoteEvent = new Instance("RemoteEvent");
-	const remoteFunction = new Instance("RemoteFunction");
-	remoteEvent.Parent = script;
-	remoteFunction.Parent = script;
+	if (!script.FindFirstChild("RemoteEvent")) {
+		const remoteEvent = new Instance("RemoteEvent");
+		remoteEvent.Parent = script;
+	}
+	if (!script.FindFirstChild("RemoteFunction")) {
+		const remoteFunction = new Instance("RemoteFunction");
+		remoteFunction.Parent = script;
+	}
 }
 
 const remote = {
@@ -14,13 +18,29 @@ const remote = {
 	function: script.WaitForChild("RemoteFunction") as RemoteFunction,
 };
 
+print(remote.event.Parent);
+print(remote.function.Parent);
+
 const Packet = t.interface({
 	cmd: t.number,
 	props: t.array(t.any),
 });
 
 /**Creates links between the client and server. */
-export class NetLink implements NetLinkInterface {
+export class Link implements LinkInterface {
+	private static instance: Link;
+	static getInstance(): Link {
+		if (!this.instance) this.instance = new Link();
+		return this.instance;
+	}
+	/**Builtin command ids for internal systems */
+	InternalCommands = {
+		LoadView: 127,
+		OpenView: 126,
+		UpdateView: 125,
+		CloseView: 124,
+		GetObjectById: 123,
+	};
 	/**Used to give all connections a unique id */
 	private id = 0;
 	/**All of the connections for events */
@@ -51,6 +71,7 @@ export class NetLink implements NetLinkInterface {
 		if (RunService.IsClient()) {
 			return remote.function.InvokeServer(packet);
 		} else {
+			print(data.player);
 			if (!data.player) return;
 			return remote.function.InvokeClient(data.player, packet);
 		}
@@ -117,8 +138,10 @@ export class NetLink implements NetLinkInterface {
 	 */
 	private onFunction(packet: unknown, player: Player | undefined = undefined) {
 		if (player) {
+			print(packet);
 			if (!Packet(packet)) return;
 			const callback = this.callbacks.get(packet.cmd);
+			print(callback);
 			if (!callback) return;
 			return callback(player, ...packet.props);
 		}
@@ -127,7 +150,7 @@ export class NetLink implements NetLinkInterface {
 		if (!callback) return;
 		return callback(...packet.props);
 	}
-	constructor() {
+	private constructor() {
 		if (RunService.IsClient()) {
 			remote.event.OnClientEvent.Connect((packet) => this.onEvent(packet));
 			remote.function.OnClientInvoke = (packet) => this.onFunction(packet);

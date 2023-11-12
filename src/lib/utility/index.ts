@@ -1,3 +1,5 @@
+import { RunService } from "@rbxts/services";
+
 /**
  * [iteration, time]
  */
@@ -17,4 +19,26 @@ export function snowflake(): number {
 		iteration += 1;
 	}
 	return tonumber(`${iteration}${time}`) ?? 0;
+}
+
+export function OnlyServer(object: object, propertyName: string, description: TypedPropertyDescriptor<Callback>) {
+	const method = description.value;
+
+	description.value = function (this, ...args: unknown[]) {
+		assert(RunService.IsServer(), `Method ${propertyName} can't be called on client.`);
+		return method(this, ...args);
+	};
+
+	return description;
+}
+
+export function OnlyClient(object: object, propertyName: string, description: TypedPropertyDescriptor<Callback>) {
+	const method = description.value;
+
+	description.value = function (this, ...args: unknown[]) {
+		assert(RunService.IsClient(), `Method ${propertyName} can't be called on server.`);
+		return method(this, ...args);
+	};
+
+	return description;
 }

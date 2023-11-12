@@ -1,19 +1,32 @@
-import { RunService } from "@rbxts/services";
-import { WorldObjectManagerClass } from "./lib/tech-tree/world-object";
-import { NetLink } from "./lib/net";
+import { RunService, Workspace } from "@rbxts/services";
+
+/**Exports the input library. */
+export { InputManager, InputAction } from "./lib/systems/input";
+
+/**Exports the event library. */
+export { EventManager, Event } from "./lib/systems/event";
+
+/**Exports the veiw library. */
+export { ViewManager } from "./lib/tech-tree/view";
+
+/**Exports the WorldObject library. */
+export { WorldObjectManager } from "./lib/tech-tree/world-object";
+
+/**Exports the TechTree library. */
+export { TechTree } from "./lib/tech-tree";
+
+/**Exports the Link library. */
+export { Link } from "./lib/link";
 
 namespace Iron {
-	export let WorldObjectManager: WorldObjectManagerClass;
-	export const Link = new NetLink();
-	export function Initialize(props: IronSettings) {
-		if (RunService.IsServer()) {
-			Iron.WorldObjectManager = new WorldObjectManagerClass(props.RootWorldObjectLocation, props.FPS);
-		}
+	/**Initializes Iron's basic needs */
+	export function Initialize() {
+		if (RunService.IsClient()) return;
+		const root = new Instance("Folder");
+		root.Name = "@rbxts/iron";
+		root.Parent = Workspace;
 	}
 }
 
-/**Export Iron itself. */
+/**Exports Iron's base function library. */
 export default Iron;
-
-/**Export the TechTree library. */
-export { TechTree } from "./lib/tech-tree";

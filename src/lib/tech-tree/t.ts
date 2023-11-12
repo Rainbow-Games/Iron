@@ -1,6 +1,14 @@
+import Roact, { Element } from "@rbxts/roact";
 import { t } from "@rbxts/t";
 
+export const View = t.interface({
+	name: t.string,
+	layer: t.number,
+	render: t.any,
+});
+
 export const WorldObject = t.interface({
+	view: t.any,
 	name: t.string,
 	display: t.string,
 	discription: t.string,
@@ -13,6 +21,7 @@ export const WorldObject = t.interface({
 });
 
 export const WorldObjectComponent = t.interface({
+	view: t.any,
 	name: t.string,
 	display: t.string,
 	discription: t.string,
@@ -79,12 +88,12 @@ export const ToolItem = t.interface({
 export const ItemTypes = [Item, WorldObjectItem, DurrabilityItem, DecayingItem, ToolItem];
 
 export const ItemStack = t.interface({
-	name: t.union(...ItemTypes),
+	base: t.union(...ItemTypes),
 	quantity: t.number,
 });
 
 export const DurrabilityItemStack = t.interface({
-	name: t.union(...ItemTypes),
+	base: t.union(...ItemTypes),
 	quantity: t.number,
 	durrability: t.number,
 });
@@ -96,4 +105,5 @@ export const TechTreeTypes = {
 	WorldObjectComponent: 2,
 	Item: 3,
 	Recipe: 4,
+	View: 4,
 };

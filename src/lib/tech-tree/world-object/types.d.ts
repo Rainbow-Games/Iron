@@ -1,4 +1,5 @@
 import { Bin } from "../../bin";
+import { ViewBase } from "../view";
 
 /**Ticks and manages all world objects in the game */
 export interface WorldObjectManagerInterface {
@@ -52,6 +53,8 @@ export interface ClonedWorldObjectInterface {
 
 /**World objects are objects players can place in the world. */
 export interface WorldObjectBase {
+	/**The view to open on interact */
+	view: ViewBase | undefined;
 	/**The system name for the object */
 	name: string;
 	/**The name the player sees */
@@ -65,11 +68,11 @@ export interface WorldObjectBase {
 	/**Components attached by system name. */
 	components: string[];
 	/**Ticks on every frame */
-	tick: (dt: number, object: ClonedWorldObjectInterface) => void;
+	tick(dt: number, object: ClonedWorldObjectInterface): void;
 	/**Initialize the object and change component settings */
-	initialize: (object: ClonedWorldObjectInterface) => void;
+	initialize(object: ClonedWorldObjectInterface): void;
 	/**function to run before destruction*/
-	destroy: (object: ClonedWorldObjectInterface) => void;
+	destroy(object: ClonedWorldObjectInterface): void;
 }
 
 /**World object components are attached to world objects to add functionality. */
@@ -94,6 +97,8 @@ export interface ClonedWorldObjectComponentInterface {
 
 /**World object components are attached to world objects to add functionality. */
 export interface WorldObjectComponentBase {
+	/**The view to open on selection */
+	view: ViewBase | undefined;
 	/**The components system name */
 	name: string;
 	/**The name the player sees */
@@ -103,9 +108,9 @@ export interface WorldObjectComponentBase {
 	/**The icon for the component */
 	icon: string;
 	/**Ticks on every frame */
-	tick: (dt: number, compoent: ClonedWorldObjectComponentInterface) => void;
+	tick(dt: number, compoent: ClonedWorldObjectComponentInterface): void;
 	/**Initializes this component */
-	initialize: (compoent: ClonedWorldObjectComponentInterface) => void;
+	initialize(compoent: ClonedWorldObjectComponentInterface): void;
 	/**Fires before world object destruction */
-	destroy: (compoent: ClonedWorldObjectComponentInterface) => void;
+	destroy(compoent: ClonedWorldObjectComponentInterface): void;
 }

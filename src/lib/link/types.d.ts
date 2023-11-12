@@ -1,5 +1,5 @@
 /**Creates links between the client and server. */
-export abstract class NetLinkInterface {
+export abstract class LinkInterface {
 	/**
 	 * Fires an event on the other side with the given command.
 	 * @param data Player is only needed for firing clients. command is allways needed.
