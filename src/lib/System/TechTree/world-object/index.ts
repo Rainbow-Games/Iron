@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import { Utility } from "../../utility";
 import { RunService, Workspace } from "@rbxts/services";
 import { TechTreeTypes, WorldObject, WorldObjectComponent } from "../t";

@@ -1,5 +1,7 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import { EnumTree } from "../../enum";
-import { RunsOn } from "../../utility/decorators";
+import { RunsOn } from "../../Utility/Decorators/runsOn";
 import { IWorldObjectManager } from "./types";
 
 /**
@@ -100,9 +102,6 @@ export class WorldObjectManager implements IWorldObjectManager {
 	 * @param root The folder where all objects are placed.
 	 */
 	private constructor() {
-		const root = new Instance("Folder");
-		root.Name = "@rbxts/iron";
-		root.Parent = Workspace;
 		this.root = new Instance("Folder");
 		this.root.Name = "WorldObjects";
 		this.root.Parent = root;

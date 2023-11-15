@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 /**
  * Manages all world objects in the game and makes new ones.
  */

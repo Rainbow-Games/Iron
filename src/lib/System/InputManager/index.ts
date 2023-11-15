@@ -1,7 +1,7 @@
 import { RunService, UserInputService } from "@rbxts/services";
-import { IEvent } from "../event-manager/types";
+import { IEvent } from "../EventManager/types";
 import { IInputAction, IInputManager } from "./types";
-import { EventManager } from "../event-manager";
+import { EventManager } from "../EventManager";
 
 /**
  * The primary container for input events.

@@ -1,4 +1,4 @@
-import { IEvent } from "../event-manager/types";
+import { IEvent } from "../EventManager/types";
 
 export interface IButtonProps {
 	useLeftMouse: boolean;

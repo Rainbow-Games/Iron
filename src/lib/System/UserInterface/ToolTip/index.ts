@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import Roact from "@rbxts/roact";
 import { Players, UserInputService, Workspace } from "@rbxts/services";
 import { Bin } from "../../bin";

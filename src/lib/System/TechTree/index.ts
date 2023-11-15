@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import { ItemBase } from "./item/types";
 import { Item, TechTreeTypes, View, WorldObject, WorldObjectComponent, WorldObjectItem } from "./t";
 import { TechTreeInterface } from "./types";

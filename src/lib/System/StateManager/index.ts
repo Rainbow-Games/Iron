@@ -1,3 +1,4 @@
+import { EnumTree } from "../../enum";
 import { IState, IStateManager } from "./types";
 
 /**
@@ -40,7 +41,7 @@ export class StateManager {
 	 * @param identifiers Identifiers that are on the states to get.
 	 * @returns The states with the provided identifiers if any.
 	 */
-	filterByIdentifiers(identifiers: string[]): IState[] | undefined {
+	filterByIdentifiers(identifiers: [string | EnumTree.StateIdentifier]): IState[] | undefined {
 		let result: IState[] = this.StateContainer;
 		for (const identifier of identifiers) {
 			result = result.filter(

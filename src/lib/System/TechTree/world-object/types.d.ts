@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import { Bin } from "../../bin";
 import { ViewBase } from "../view";
 

@@ -1,3 +1,5 @@
+// **OLD SYSTEM: PENDING REWORK**
+
 import Roact, { Element } from "@rbxts/roact";
 import { t } from "@rbxts/t";
 

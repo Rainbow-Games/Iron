@@ -1,7 +1,7 @@
-import { EventManager } from "../event-manager";
+import { EventManager } from "../EventManager";
 import { InputManager } from ".";
 import { IButtonProps, IInputAction } from "./types";
-import { IEvent } from "../event-manager/types";
+import { IEvent } from "../EventManager/types";
 
 /**
  * Allows for connecting events to KeyCodes or Buttons.

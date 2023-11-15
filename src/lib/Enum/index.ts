@@ -90,4 +90,37 @@ export declare namespace EnumTree {
 		| InternalLinkCommand.UpdateView
 		| InternalLinkCommand.LoadView
 		| InternalLinkCommand.GetObjectById;
+
+	/**
+	 * Internal State identifiers for use in internal systems.
+	 */
+	export namespace StateIdentifier {
+		export interface WorldObject extends EnumItem {
+			Name: "WorldObject";
+			Value: 0;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const WorldObject: WorldObject;
+
+		export interface Tickable extends EnumItem {
+			Name: "Tickable";
+			Value: 0;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const Tickable: Tickable;
+
+		export interface ExternalId extends EnumItem {
+			Name: "ExternalId";
+			Value: 0;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const ExternalId: ExternalId;
+
+		export function GetEnumItems(this: EnumTree): Array<EnumTree.StateIdentifier>;
+	}
+
+	export type StateIdentifier = StateIdentifier.WorldObject | StateIdentifier.Tickable | StateIdentifier.ExternalId;
 }
