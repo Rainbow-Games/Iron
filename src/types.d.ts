@@ -1,4 +1,5 @@
-interface IronSettings {
-	RootWorldObjectLocation: Folder | undefined;
-	FPS: number;
+/**"Iron, it's in every factory game!" */
+interface Iron {
+	/**Exports the WorldObjectManager instance (and creates it). */
+	WorldObjectManager:
 }

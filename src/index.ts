@@ -1,32 +1,75 @@
-import { RunService, Workspace } from "@rbxts/services";
+/*********************************************************************\
+|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
+|*|	File Summary:													|*|
+|*|		The main entry way for the package.							|*|
+|*|	Sections:														|*|
+|*|	    - Imports: 		Things used in the Iron namespace.			|*|
+|*|		- Iron:			The main namespace that houses all 			|*|
+|*|						SystemManagers.								|*|
+|*|		- Exports: 		Exports everything the developer will need	|*|
+|*|						to utilize this package.					|*|
+|*|_________________________________________________________________|*|
+\*********************************************************************/
 
-/**Exports the input library. */
-export { InputManager, InputAction } from "./lib/systems/input";
+/*********************************************************************\
+|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
+|*|	Imports:  Things used in the Iron namespace.					|*|
+|*|_________________________________________________________________|*|
+\*********************************************************************/
 
-/**Exports the event library. */
-export { EventManager, Event } from "./lib/systems/event";
+import { InputManager as InputManagerSingleton } from "./lib/systems/input-manager";
 
-/**Exports the veiw library. */
-export { ViewManager } from "./lib/tech-tree/view";
+import { EventManager as EventManagerSingleton } from "./lib/systems/event-manager";
 
-/**Exports the WorldObject library. */
-export { WorldObjectManager } from "./lib/tech-tree/world-object";
+import { ViewManager as ViewManagerSingleton } from "./lib/systems/ViewManager";
 
-/**Exports the TechTree library. */
-export { TechTree } from "./lib/tech-tree";
+import { WorldObjectManager as WorldObjectManagerSingleton } from "./lib/systems/WorldObjectManager";
 
-/**Exports the Link library. */
-export { Link } from "./lib/link";
+import { TechTree as TechTreeSingleton } from "./lib/systems/tech-tree";
 
+import { Link as LinkSingleton } from "./lib/systems/link";
+
+import { EnumTree } from "./lib/enum";
+
+/*********************************************************************\
+|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
+|*|	Iron:  The main namespace that houses all SystemManagers.	    |*|
+|*|_________________________________________________________________|*|
+\*********************************************************************/
+
+/**"Iron, it's in every factory game!" */
 namespace Iron {
-	/**Initializes Iron's basic needs */
-	export function Initialize() {
-		if (RunService.IsClient()) return;
-		const root = new Instance("Folder");
-		root.Name = "@rbxts/iron";
-		root.Parent = Workspace;
-	}
+	/**The WorldObjectManager instance. */
+	export const WorldObjectManager = WorldObjectManagerSingleton.getInstance();
+
+	/**The TechTree instance. */
+	export const TechTree = TechTreeSingleton.getInstance();
+
+	/**The Link instance. */
+	export const Link = LinkSingleton.getInstance();
+
+	/**The ViewManager instance. */
+	export const ViewManager = ViewManagerSingleton.getInstance();
+
+	/**The EventManager instance. */
+	export const EventManager = EventManagerSingleton.getInstance();
+
+	/**The InputManager instance. */
+	export const InputManager = InputManagerSingleton.getInstance();
+
+	/**The Enum with all of Iron's static value types. */
+	export const Enum = EnumTree;
 }
 
-/**Exports Iron's base function library. */
+/*********************************************************************\
+|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
+|*|	Exports:  Exports everything the developer will need to 		|*|
+|*|			  utilize this package.									|*|
+|*|_________________________________________________________________|*|
+\*********************************************************************/
+
+// Exports the Iron namespace.
 export default Iron;
+
+// Exports the InputAction class for InputManager use.
+export { InputAction } from "./lib/systems/input-manager";

@@ -3,16 +3,19 @@
   "version": "0.0.1",
   "description": "Iron, it's in every factory game!",
   "main": "out/init.lua",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rainbow-Games/Iron.git"
+  },
   "scripts": {
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [],
+  "keywords": ["@rbxts/iron"],
   "author": "rainbowiris333",
   "license": "CC-BY-NC-SA-4.0",
-  "types": "out/index.d.ts",
+  "types": "out/index.d.ts", 
   "files": [
     "out",
     "!**/*.tsbuildinfo"
