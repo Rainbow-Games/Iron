@@ -29,7 +29,7 @@ export class ServerManager implements IServerManager {
 	 * @returns A unique id.
 	 */
 	snowflake(): number {
-		const time = DateTime.now().FormatUniversalTime("YYYYMMDDhmmss", "en-us");
+		const time = DateTime.now().FormatUniversalTime("YYYYMMDDhhmmss", "en-us");
 		if (time !== this.last) {
 			this.last = time;
 			this.iteration = 0;

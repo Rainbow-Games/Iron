@@ -1,44 +1,33 @@
-import { DefaultWorldObjectState } from "./DefaultState";
-import { IWorldObjectState } from "./types";
+import { DefaultWorldObjectComponentState } from "./DefaultState";
 
 /**
  * World objects are objects players can place in the world.
  */
-export abstract class WorldObject<WorldObjectState extends IWorldObjectState> {
+export interface IWorldObjectComponent {
 	/**
 	 * The system name for the object
 	 */
-	abstract name: string;
+	name: string;
 
 	/**
 	 * The name the player sees
 	 */
-	abstract display: string;
+	display: string;
 
 	/**
 	 * The discription the player sees
 	 */
-	abstract discription: string;
+	discription: string;
 
 	/**
 	 * The icon for the object
 	 */
-	abstract icon: string;
-
-	/**
-	 * The objects model
-	 */
-	abstract model: Model;
+	icon: string;
 
 	/**
 	 * The default state to use on object construction
 	 */
-	abstract defaultState: DefaultWorldObjectState;
-
-	/**
-	 * Components to add to the WorldObject.
-	 */
-	abstract components: string[];
+	defaultState: DefaultWorldObjectComponentState;
 
 	/**
 	 * Function that runs when the object is placed
@@ -46,7 +35,7 @@ export abstract class WorldObject<WorldObjectState extends IWorldObjectState> {
 	 * @param placer The player or object that placed the object
 	 * @returns A boolean that detemines if the placement will continue
 	 */
-	abstract initialize: (state: WorldObjectState, placer: Player | string) => boolean;
+	initialize: (state: DefaultWorldObjectComponentState, placer: Player | string) => boolean;
 
 	/**
 	 * Function that runs when the object is destroyed
@@ -54,5 +43,5 @@ export abstract class WorldObject<WorldObjectState extends IWorldObjectState> {
 	 * @param placer The player or object that destroyed the object
 	 * @returns A boolean that detemines if the destruction will continue
 	 */
-	abstract destroy: (state: WorldObjectState, destructor: Player | string) => boolean;
+	destroy: (state: DefaultWorldObjectComponentState, destructor: Player | string) => boolean;
 }

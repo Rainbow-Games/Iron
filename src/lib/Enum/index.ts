@@ -105,7 +105,7 @@ export declare namespace EnumTree {
 
 		export interface Tickable extends EnumItem {
 			Name: "Tickable";
-			Value: 0;
+			Value: 1;
 			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
@@ -113,14 +113,51 @@ export declare namespace EnumTree {
 
 		export interface ExternalId extends EnumItem {
 			Name: "ExternalId";
-			Value: 0;
+			Value: 2;
 			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
 		export const ExternalId: ExternalId;
 
+		export interface WorldObjectComponent extends EnumItem {
+			Name: "WorldObjectComponent";
+			Value: 3;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const WorldObjectComponent: WorldObjectComponent;
+
 		export function GetEnumItems(this: EnumTree): Array<EnumTree.StateIdentifier>;
 	}
 
-	export type StateIdentifier = StateIdentifier.WorldObject | StateIdentifier.Tickable | StateIdentifier.ExternalId;
+	export type StateIdentifier =
+		| StateIdentifier.WorldObject
+		| StateIdentifier.Tickable
+		| StateIdentifier.ExternalId
+		| StateIdentifier.WorldObjectComponent;
+
+	/**
+	 * different types from the tech tree
+	 */
+	export namespace TechTreeType {
+		export interface WorldObject extends EnumItem {
+			Name: "WorldObject";
+			Value: 0;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const WorldObject: WorldObject;
+
+		export interface WorldObjectComponent extends EnumItem {
+			Name: "WorldObjectComponent";
+			Value: 1;
+			EnumType: typeof EnumTree.StateIdentifier;
+		}
+
+		export const WorldObjectComponent: WorldObjectComponent;
+
+		export function GetEnumItems(this: EnumTree): Array<EnumTree.StateIdentifier>;
+	}
+
+	export type TechTreeType = TechTreeType.WorldObject | TechTreeType.WorldObjectComponent;
 }
