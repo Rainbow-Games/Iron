@@ -1,5 +1,5 @@
 import { RunService } from "@rbxts/services";
-import { EnumTree } from "../../enum";
+import { EnumTree } from "../../Enum";
 
 /**
  * Error if the game is running the wrong type of instance for the code.

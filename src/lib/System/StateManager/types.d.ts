@@ -1,4 +1,4 @@
-import { EnumTree } from "../../enum";
+import { EnumTree } from "../../Enum";
 import { IEvent } from "../EventManager/types";
 
 export interface IStateManager {
@@ -21,7 +21,7 @@ export interface IStateManager {
 	 * @param identifiers Identifiers that are on the states to get.
 	 * @returns The states with the provided identifiers if any.
 	 */
-	filterByIdentifiers(identifiers: [string | EnumTree.StateIdentifier]): IState[] | undefined;
+	filterByIdentifiers(...identifiers: (string | EnumTree.StateIdentifier)[]): IState[];
 
 	/**
 	 * Removes a state bu its id.

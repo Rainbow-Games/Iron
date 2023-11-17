@@ -1,4 +1,4 @@
-import { EnumTree } from "../../../enum";
+import { EnumTree } from "../../../Enum";
 import { DefaultWorldObjectState } from "../WorldObjectTypes/DefaultState";
 import { DefaultWorldObjectComponentState } from "./DefaultState";
 import { WorldObjectComponent } from "./WorldObjectComponent";
@@ -20,8 +20,8 @@ export abstract class DefaultTickableWorldObjectComponentState extends DefaultWo
 	/**
 	 * starts object ticking.
 	 */
-	constructor(getObject: () => DefaultWorldObjectState) {
-		super(getObject);
+	constructor(name: string, getObject: () => DefaultWorldObjectState) {
+		super(name, getObject);
 		this.identifiers.push(EnumTree.StateIdentifier.Tickable);
 	}
 }

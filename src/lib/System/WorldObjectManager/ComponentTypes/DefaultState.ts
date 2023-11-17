@@ -1,4 +1,4 @@
-import { EnumTree } from "../../../enum";
+import { EnumTree } from "../../../Enum";
 import { DefaultState } from "../../StateManager/defaultState";
 import { DefaultWorldObjectState } from "../WorldObjectTypes/DefaultState";
 import { IState } from "../../StateManager/types";
@@ -6,10 +6,13 @@ import { IState } from "../../StateManager/types";
 export abstract class DefaultWorldObjectComponentState extends DefaultState implements IWorldObjectComponentState {
 	identifiers: [string | EnumTree.StateIdentifier] = [EnumTree.StateIdentifier.WorldObjectComponent];
 
+	name: string;
+
 	getObject: () => DefaultWorldObjectState;
 
-	constructor(getObject: () => DefaultWorldObjectState) {
+	constructor(name: string, getObject: () => DefaultWorldObjectState) {
 		super();
+		this.name = name;
 		this.getObject = getObject;
 	}
 }

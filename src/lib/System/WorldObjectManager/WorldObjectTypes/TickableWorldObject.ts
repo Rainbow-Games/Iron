@@ -1,4 +1,4 @@
-import { EnumTree } from "../../../enum";
+import { EnumTree } from "../../../Enum";
 import { DefaultWorldObjectState } from "./DefaultState";
 import { WorldObject } from "./WorldObject";
 import { IWorldObjectState } from "./types";

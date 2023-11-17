@@ -1,7 +1,7 @@
 import { DefaultState } from "../../StateManager/defaultState";
 import { Value } from "../../StateManager/value";
 import { IWorldObjectState } from "./types";
-import { EnumTree } from "../../../enum";
+import { EnumTree } from "../../../Enum";
 
 export abstract class DefaultWorldObjectState extends DefaultState implements IWorldObjectState {
 	/**
@@ -13,9 +13,9 @@ export abstract class DefaultWorldObjectState extends DefaultState implements IW
 
 	identifiers: [string | EnumTree.StateIdentifier] = [EnumTree.StateIdentifier.WorldObject];
 
-	getComponent: <T>() => T;
+	getComponent: <T>() => T | undefined;
 
-	constructor(name: string, getComponent: <T>() => T) {
+	constructor(name: string, getComponent: <T>() => T | undefined) {
 		super();
 		this.name = name;
 		this.getComponent = getComponent;

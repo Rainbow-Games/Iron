@@ -16,5 +16,7 @@ Allows for binding of InputActions that connect to gui button presses or keys pr
 ### ServerManager
 Allows for creation of unique snowflakes as ids thoughout all servers that will be used to prevent dupes of items and objects.
 Has a shutdown function for use on updates or admin commands that teleports players to reserved places durring updates.
+### Console and Debug Packets
+the console works as print(log) warn error but debug packets add class that acts as its own console and prints out all output when print is called
 ### EnumTree
 Stores any enums used for easy developer use. Gets exported as Iron.Enum

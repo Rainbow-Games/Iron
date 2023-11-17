@@ -1,75 +1,58 @@
-/*********************************************************************\
-|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
-|*|	File Summary:													|*|
-|*|		The main entry way for the package.							|*|
-|*|	Sections:														|*|
-|*|	    - Imports: 		Things used in the Iron namespace.			|*|
-|*|		- Iron:			The main namespace that houses all 			|*|
-|*|						SystemManagers.								|*|
-|*|		- Exports: 		Exports everything the developer will need	|*|
-|*|						to utilize this package.					|*|
-|*|_________________________________________________________________|*|
-\*********************************************************************/
+import { InputManager as InputManagerSingleton } from "./lib/System/InputManager";
 
-/*********************************************************************\
-|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
-|*|	Imports:  Things used in the Iron namespace.					|*|
-|*|_________________________________________________________________|*|
-\*********************************************************************/
+import { EventManager as EventManagerSingleton } from "./lib/System/EventManager";
 
-import { InputManager as InputManagerSingleton } from "./lib/systems/input-manager";
+import { ServerManager as ServerManagerSingleton } from "./lib/System/SeverManager";
 
-import { EventManager as EventManagerSingleton } from "./lib/systems/event-manager";
+import { TechTree as TechTreeSingleton } from "./lib/System/TechTree";
 
-import { ViewManager as ViewManagerSingleton } from "./lib/systems/ViewManager";
+import { Console as console } from "./lib/Utility/console";
 
-import { WorldObjectManager as WorldObjectManagerSingleton } from "./lib/systems/WorldObjectManager";
+import { StateManager as StateManagerSingleton } from "./lib/System/StateManager";
 
-import { TechTree as TechTreeSingleton } from "./lib/systems/tech-tree";
+import { Config as ConfigSingleton } from "./lib/System/Config";
 
-import { Link as LinkSingleton } from "./lib/systems/link";
-
-import { EnumTree } from "./lib/enum";
-
-/*********************************************************************\
-|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
-|*|	Iron:  The main namespace that houses all SystemManagers.	    |*|
-|*|_________________________________________________________________|*|
-\*********************************************************************/
+import { TickManager as TickManagerSingleton } from "./lib/System/TickManager";
 
 /**"Iron, it's in every factory game!" */
 namespace Iron {
-	/**The WorldObjectManager instance. */
-	export const WorldObjectManager = WorldObjectManagerSingleton.getInstance();
-
-	/**The TechTree instance. */
-	export const TechTree = TechTreeSingleton.getInstance();
-
-	/**The Link instance. */
-	export const Link = LinkSingleton.getInstance();
-
-	/**The ViewManager instance. */
-	export const ViewManager = ViewManagerSingleton.getInstance();
-
 	/**The EventManager instance. */
 	export const EventManager = EventManagerSingleton.getInstance();
 
 	/**The InputManager instance. */
 	export const InputManager = InputManagerSingleton.getInstance();
 
-	/**The Enum with all of Iron's static value types. */
-	export const Enum = EnumTree;
-}
+	/**The ServerManager instance */
+	export const ServerManager = ServerManagerSingleton.getInstance();
 
-/*********************************************************************\
-|*|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|*|
-|*|	Exports:  Exports everything the developer will need to 		|*|
-|*|			  utilize this package.									|*|
-|*|_________________________________________________________________|*|
-\*********************************************************************/
+	/**TechTree houses all availible instances and their default states. */
+	export const TechTree = TechTreeSingleton.getInstance();
+
+	/**The state manager houses all states and can search add and remove them by id or identifiers. */
+	export const StateManager = StateManagerSingleton.getInstance();
+
+	/**Allows for central ticking of anything that ticks also allows you to pause or change tick speed. */
+	export const TickManager = TickManagerSingleton.getInstance();
+
+	/**Prints lines to the console and can create debug packets. */
+	export const Console = console;
+
+	/**Configure Iron here. */
+	export const Config = ConfigSingleton;
+}
 
 // Exports the Iron namespace.
 export default Iron;
 
 // Exports the InputAction class for InputManager use.
-export { InputAction } from "./lib/systems/input-manager";
+export { InputAction } from "./lib/System/InputManager/inputAction";
+
+export { IronConfig } from "./lib/System/Config/types";
+
+// Exports all types of World Objects
+export { WorldObject } from "./lib/System/WorldObjectManager/WorldObjectTypes/WorldObject";
+export { TickableWorldObject } from "./lib/System/WorldObjectManager/WorldObjectTypes/TickableWorldObject";
+
+// Exports all types of World Object Components
+export { WorldObjectComponent } from "./lib/System/WorldObjectManager/ComponentTypes/WorldObjectComponent";
+export { TickableWorldObjectComponent } from "./lib/System/WorldObjectManager/ComponentTypes/TickableWorldObjectComponent";

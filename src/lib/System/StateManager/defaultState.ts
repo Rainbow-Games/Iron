@@ -1,4 +1,4 @@
-import { EnumTree } from "../../enum";
+import { EnumTree } from "../../Enum";
 import { IState } from "./types";
 
 /**

@@ -1,39 +1,37 @@
-interface EnumTree {
-	GetEnumItems(this: Enum): Array<EnumItem>;
-}
-
-export declare namespace EnumTree {
-	export function GetEnums(this: Enums): Array<Enum>;
-
+export namespace EnumTree {
 	/**
 	 * The type of instance the game is running on.
 	 */
 	export namespace RunType {
-		export interface Server extends EnumItem {
+		export interface Server extends EnumTreeItem {
 			Name: "Server";
 			Value: 0;
-			EnumType: typeof EnumTree.RunType;
 		}
 
-		export const Server: Server;
+		export const Server: Server = {
+			Name: "Server",
+			Value: 0,
+		};
 
-		export interface Client extends EnumItem {
-			Name: "Deny";
+		export interface Client extends EnumTreeItem {
+			Name: "Client";
 			Value: 1;
-			EnumType: typeof EnumTree.RunType;
 		}
 
-		export const Client: Client;
+		export const Client: Client = {
+			Name: "Client",
+			Value: 1,
+		};
 
-		export interface Studio extends EnumItem {
+		export interface Studio extends EnumTreeItem {
 			Name: "Studio";
 			Value: 2;
-			EnumType: typeof EnumTree.RunType;
 		}
 
-		export const Studio: Studio;
-
-		export function GetEnumItems(this: EnumTree): Array<EnumTree.RunType>;
+		export const Studio: Studio = {
+			Name: "Studio",
+			Value: 2,
+		};
 	}
 	export type RunType = RunType.Client | RunType.Server | RunType.Studio;
 
@@ -41,47 +39,55 @@ export declare namespace EnumTree {
 	 * Internal networking commands for fireing / reciving events and functions
 	 */
 	export namespace InternalLinkCommand {
-		export interface OpenView extends EnumItem {
+		export interface OpenView extends EnumTreeItem {
 			Name: "OpenView";
 			Value: 0;
-			EnumType: typeof EnumTree.InternalLinkCommand;
 		}
 
-		export const OpenView: OpenView;
+		export const OpenView: OpenView = {
+			Name: "OpenView",
+			Value: 0,
+		};
 
-		export interface CloseView extends EnumItem {
+		export interface CloseView extends EnumTreeItem {
 			Name: "CloseView";
 			Value: 1;
-			EnumType: typeof EnumTree.InternalLinkCommand;
 		}
 
-		export const CloseView: CloseView;
+		export const CloseView: CloseView = {
+			Name: "CloseView",
+			Value: 1,
+		};
 
-		export interface UpdateView extends EnumItem {
+		export interface UpdateView extends EnumTreeItem {
 			Name: "UpdateView";
 			Value: 2;
-			EnumType: typeof EnumTree.InternalLinkCommand;
 		}
 
-		export const UpdateView: UpdateView;
+		export const UpdateView: UpdateView = {
+			Name: "UpdateView",
+			Value: 2,
+		};
 
-		export interface LoadView extends EnumItem {
+		export interface LoadView extends EnumTreeItem {
 			Name: "LoadView";
 			Value: 3;
-			EnumType: typeof EnumTree.InternalLinkCommand;
 		}
 
-		export const LoadView: LoadView;
+		export const LoadView: LoadView = {
+			Name: "LoadView",
+			Value: 3,
+		};
 
-		export interface GetObjectById extends EnumItem {
+		export interface GetObjectById extends EnumTreeItem {
 			Name: "GetObjectById";
 			Value: 4;
-			EnumType: typeof EnumTree.InternalLinkCommand;
 		}
 
-		export const GetObjectById: GetObjectById;
-
-		export function GetEnumItems(this: EnumTree): Array<EnumTree.InternalLinkCommand>;
+		export const GetObjectById: GetObjectById = {
+			Name: "GetObjectById",
+			Value: 4,
+		};
 	}
 
 	export type InternalLinkCommand =
@@ -95,39 +101,45 @@ export declare namespace EnumTree {
 	 * Internal State identifiers for use in internal systems.
 	 */
 	export namespace StateIdentifier {
-		export interface WorldObject extends EnumItem {
+		export interface WorldObject extends EnumTreeItem {
 			Name: "WorldObject";
 			Value: 0;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const WorldObject: WorldObject;
+		export const WorldObject: WorldObject = {
+			Name: "WorldObject",
+			Value: 0,
+		};
 
-		export interface Tickable extends EnumItem {
+		export interface Tickable extends EnumTreeItem {
 			Name: "Tickable";
 			Value: 1;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const Tickable: Tickable;
+		export const Tickable: Tickable = {
+			Name: "Tickable",
+			Value: 1,
+		};
 
-		export interface ExternalId extends EnumItem {
+		export interface ExternalId extends EnumTreeItem {
 			Name: "ExternalId";
 			Value: 2;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const ExternalId: ExternalId;
+		export const ExternalId: ExternalId = {
+			Name: "ExternalId",
+			Value: 2,
+		};
 
-		export interface WorldObjectComponent extends EnumItem {
+		export interface WorldObjectComponent extends EnumTreeItem {
 			Name: "WorldObjectComponent";
 			Value: 3;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const WorldObjectComponent: WorldObjectComponent;
-
-		export function GetEnumItems(this: EnumTree): Array<EnumTree.StateIdentifier>;
+		export const WorldObjectComponent: WorldObjectComponent = {
+			Name: "WorldObjectComponent",
+			Value: 3,
+		};
 	}
 
 	export type StateIdentifier =
@@ -140,24 +152,31 @@ export declare namespace EnumTree {
 	 * different types from the tech tree
 	 */
 	export namespace TechTreeType {
-		export interface WorldObject extends EnumItem {
+		export interface WorldObject extends EnumTreeItem {
 			Name: "WorldObject";
 			Value: 0;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const WorldObject: WorldObject;
+		export const WorldObject: WorldObject = {
+			Name: "WorldObject",
+			Value: 0,
+		};
 
-		export interface WorldObjectComponent extends EnumItem {
+		export interface WorldObjectComponent extends EnumTreeItem {
 			Name: "WorldObjectComponent";
 			Value: 1;
-			EnumType: typeof EnumTree.StateIdentifier;
 		}
 
-		export const WorldObjectComponent: WorldObjectComponent;
-
-		export function GetEnumItems(this: EnumTree): Array<EnumTree.StateIdentifier>;
+		export const WorldObjectComponent: WorldObjectComponent = {
+			Name: "WorldObjectComponent",
+			Value: 1,
+		};
 	}
 
 	export type TechTreeType = TechTreeType.WorldObject | TechTreeType.WorldObjectComponent;
+}
+
+interface EnumTreeItem {
+	Name: string;
+	Value: number;
 }
