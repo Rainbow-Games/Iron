@@ -1,3 +1,5 @@
+import { t } from "@rbxts/t";
+
 export namespace EnumTree {
 	/**
 	 * The type of instance the game is running on.
@@ -38,64 +40,53 @@ export namespace EnumTree {
 	/**
 	 * Internal networking commands for fireing / reciving events and functions
 	 */
-	export namespace InternalLinkCommand {
-		export interface OpenView extends EnumTreeItem {
-			Name: "OpenView";
+	export namespace InternalNetworkCommand {
+		export interface GetWorldObjectView extends EnumTreeItem {
+			Name: "WorldObjectView";
 			Value: 0;
 		}
 
-		export const OpenView: OpenView = {
-			Name: "OpenView",
+		export const GetWorldObjectView: GetWorldObjectView = {
+			Name: "WorldObjectView",
 			Value: 0,
 		};
 
-		export interface CloseView extends EnumTreeItem {
-			Name: "CloseView";
+		export interface GetWorldObjectComponentView extends EnumTreeItem {
+			Name: "WorldObjectComponentView";
 			Value: 1;
 		}
 
-		export const CloseView: CloseView = {
-			Name: "CloseView",
+		export const GetWorldObjectComponentView: GetWorldObjectComponentView = {
+			Name: "WorldObjectComponentView",
 			Value: 1,
 		};
 
-		export interface UpdateView extends EnumTreeItem {
-			Name: "UpdateView";
+		export interface GetWorldObjectToolTipView extends EnumTreeItem {
+			Name: "GetWorldObjectToolTipView";
 			Value: 2;
 		}
 
-		export const UpdateView: UpdateView = {
-			Name: "UpdateView",
+		export const GetWorldObjectToolTipView: GetWorldObjectToolTipView = {
+			Name: "GetWorldObjectToolTipView",
 			Value: 2,
 		};
 
-		export interface LoadView extends EnumTreeItem {
-			Name: "LoadView";
+		export interface Load extends EnumTreeItem {
+			Name: "Load";
 			Value: 3;
 		}
 
-		export const LoadView: LoadView = {
-			Name: "LoadView",
+		export const Load: Load = {
+			Name: "Load",
 			Value: 3,
-		};
-
-		export interface GetObjectById extends EnumTreeItem {
-			Name: "GetObjectById";
-			Value: 4;
-		}
-
-		export const GetObjectById: GetObjectById = {
-			Name: "GetObjectById",
-			Value: 4,
 		};
 	}
 
-	export type InternalLinkCommand =
-		| InternalLinkCommand.OpenView
-		| InternalLinkCommand.CloseView
-		| InternalLinkCommand.UpdateView
-		| InternalLinkCommand.LoadView
-		| InternalLinkCommand.GetObjectById;
+	export type InternalNetworkCommand =
+		| InternalNetworkCommand.GetWorldObjectView
+		| InternalNetworkCommand.GetWorldObjectComponentView
+		| InternalNetworkCommand.GetWorldObjectToolTipView
+		| InternalNetworkCommand.Load;
 
 	/**
 	 * Internal State identifiers for use in internal systems.
@@ -174,7 +165,89 @@ export namespace EnumTree {
 	}
 
 	export type TechTreeType = TechTreeType.WorldObject | TechTreeType.WorldObjectComponent;
+
+	/**
+	 * different InputAction types
+	 */
+	export namespace InputActionType {
+		export interface MouseButton1Down extends EnumTreeItem {
+			Name: "MouseButton1Down";
+			Value: 0;
+		}
+
+		export const MouseButton1Down: MouseButton1Down = {
+			Name: "MouseButton1Down",
+			Value: 0,
+		};
+
+		export interface MouseButton2Down extends EnumTreeItem {
+			Name: "MouseButton2Down";
+			Value: 1;
+		}
+
+		export const MouseButton2Down: MouseButton2Down = {
+			Name: "MouseButton2Down",
+			Value: 1,
+		};
+
+		export interface MouseMove extends EnumTreeItem {
+			Name: "MouseMove";
+			Value: 2;
+		}
+
+		export const MouseMove: MouseMove = {
+			Name: "MouseMove",
+			Value: 2,
+		};
+	}
+
+	export type InputActionType =
+		| InputActionType.MouseButton1Down
+		| InputActionType.MouseButton2Down
+		| InputActionType.MouseMove;
+
+	/**
+	 * different Asset types
+	 */
+	export namespace AssetType {
+		export interface Icon extends EnumTreeItem {
+			Name: "Icon";
+			Value: 0;
+		}
+
+		export const Icon: Icon = {
+			Name: "Icon",
+			Value: 0,
+		};
+
+		export interface Model extends EnumTreeItem {
+			Name: "Model";
+			Value: 1;
+		}
+
+		export const Model: Model = {
+			Name: "Model",
+			Value: 1,
+		};
+
+		export interface WorldObjectModel extends EnumTreeItem {
+			Name: "WorldObjectModel";
+			Value: 2;
+		}
+
+		export const WorldObjectModel: WorldObjectModel = {
+			Name: "WorldObjectModel",
+			Value: 2,
+		};
+	}
+
+	export type AssetType = AssetType.Icon | AssetType.Model | AssetType.WorldObjectModel;
 }
+
+export const EnumItemCheck = t.interface({
+	Name: t.string,
+	Value: t.number,
+});
 
 interface EnumTreeItem {
 	Name: string;

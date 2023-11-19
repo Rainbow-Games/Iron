@@ -1,58 +1,56 @@
-import { InputManager as InputManagerSingleton } from "./lib/System/InputManager";
-
-import { EventManager as EventManagerSingleton } from "./lib/System/EventManager";
-
-import { ServerManager as ServerManagerSingleton } from "./lib/System/SeverManager";
-
-import { TechTree as TechTreeSingleton } from "./lib/System/TechTree";
-
+import { Config as IronConfigClass } from "./lib/System/Shared/Config";
+import { Client as client } from "./lib/System/Client";
+import { Server as server } from "./lib/System/Server";
+import { EventManager as EventManagerSingleton } from "./lib/System/Shared/EventManager";
+import { TechTree as TechTreeSingleton } from "./lib/System/Shared/TechTree";
 import { Console as console } from "./lib/Utility/console";
-
-import { StateManager as StateManagerSingleton } from "./lib/System/StateManager";
-
-import { Config as ConfigSingleton } from "./lib/System/Config";
-
-import { TickManager as TickManagerSingleton } from "./lib/System/TickManager";
+import { EnumTree } from "./lib/Enum";
+import { RunService } from "@rbxts/services";
 
 /**"Iron, it's in every factory game!" */
 namespace Iron {
-	/**The EventManager instance. */
+	/**Configure Iron Though this */
+	export const Config = IronConfigClass.getInstance();
 	export const EventManager = EventManagerSingleton.getInstance();
-
-	/**The InputManager instance. */
-	export const InputManager = InputManagerSingleton.getInstance();
-
-	/**The ServerManager instance */
-	export const ServerManager = ServerManagerSingleton.getInstance();
-
-	/**TechTree houses all availible instances and their default states. */
 	export const TechTree = TechTreeSingleton.getInstance();
-
-	/**The state manager houses all states and can search add and remove them by id or identifiers. */
-	export const StateManager = StateManagerSingleton.getInstance();
-
-	/**Allows for central ticking of anything that ticks also allows you to pause or change tick speed. */
-	export const TickManager = TickManagerSingleton.getInstance();
-
-	/**Prints lines to the console and can create debug packets. */
+	export const Server = (RunService.IsServer() ? server.getInstance() : undefined) as server;
+	export const Client = (RunService.IsClient() ? client.getInstance() : undefined) as client;
 	export const Console = console;
-
-	/**Configure Iron here. */
-	export const Config = ConfigSingleton;
+	export const Enum = EnumTree;
 }
 
 // Exports the Iron namespace.
 export default Iron;
 
-// Exports the InputAction class for InputManager use.
-export { InputAction } from "./lib/System/InputManager/inputAction";
+// Export WorldObject types.
+export {
+	TickableWorldObject,
+	DefaultTickableWorldObject,
+} from "./lib/System/Server/WorldObjectManager/WorldObjectTypes/TickableWorldObject";
+export { WorldObject, DefaultWorldObject } from "./lib/System/Server/WorldObjectManager/WorldObjectTypes/WorldObject";
+export {
+	DefaultWorldObjectState,
+	DefaultTickableWorldObjectState,
+	TickableWorldObjectState,
+} from "./lib/System/Server/WorldObjectManager/WorldObjectTypes/DefaultState";
 
-export { IronConfig } from "./lib/System/Config/types";
+// Export WorldObjectComponent types.
+export {
+	TickableWorldObjectComponent,
+	DefaultTickableWorldObjectComponent,
+} from "./lib/System/Server/WorldObjectManager/ComponentTypes/TickableWorldObjectComponent";
+export {
+	WorldObjectComponent,
+	DefaultWorldObjectComponent,
+} from "./lib/System/Server/WorldObjectManager/ComponentTypes/WorldObjectComponent";
+export {
+	DefaultWorldObjectComponentState,
+	DefaultTickableWorldObjectComponentState,
+	TickableWorldObjectComponentState,
+} from "./lib/System/Server/WorldObjectManager/ComponentTypes/DefaultState";
 
-// Exports all types of World Objects
-export { WorldObject } from "./lib/System/WorldObjectManager/WorldObjectTypes/WorldObject";
-export { TickableWorldObject } from "./lib/System/WorldObjectManager/WorldObjectTypes/TickableWorldObject";
-
-// Exports all types of World Object Components
-export { WorldObjectComponent } from "./lib/System/WorldObjectManager/ComponentTypes/WorldObjectComponent";
-export { TickableWorldObjectComponent } from "./lib/System/WorldObjectManager/ComponentTypes/TickableWorldObjectComponent";
+// Export asset types.
+export { Asset } from "./lib/System/Shared/AssetTypes";
+export { IconAsset } from "./lib/System/Shared/AssetTypes/icon";
+export { ModelAsset } from "./lib/System/Shared/AssetTypes/model";
+export { WorldObjectModelAsset } from "./lib/System/Shared/AssetTypes/worldObjectModel";
